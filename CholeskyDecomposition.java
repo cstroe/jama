@@ -41,7 +41,9 @@ public class CholeskyDecomposition implements java.io.Serializable {
    */
 
    public CholeskyDecomposition (Matrix Arg) {
-      // Initialize.
+
+
+     // Initialize.
       double[][] A = Arg.getArray();
       n = Arg.getRowDimension();
       L = new double[n][n];
@@ -170,29 +172,28 @@ public class CholeskyDecomposition implements java.io.Serializable {
       double[][] X = B.getArrayCopy();
       int nx = B.getColumnDimension();
 
-      // Solve L*Y = B;
-      for (int k = 0; k < n; k++) {
-         for (int i = k+1; i < n; i++) {
-            for (int j = 0; j < nx; j++) {
-               X[i][j] -= X[k][j]*L[i][k];
-            }
-         }
-         for (int j = 0; j < nx; j++) {
-            X[k][j] /= L[k][k];
-         }
-      }
-
-      // Solve L'*X = Y;
-      for (int k = n-1; k >= 0; k--) {
-         for (int j = 0; j < nx; j++) {
-            X[k][j] /= L[k][k];
-         }
-         for (int i = 0; i < k; i++) {
-            for (int j = 0; j < nx; j++) {
-               X[i][j] -= X[k][j]*L[k][i];
-            }
-         }
-      }
+	      // Solve L*Y = B;
+	      for (int k = 0; k < n; k++) {
+	        for (int j = 0; j < nx; j++) {
+	           for (int i = 0; i < k ; i++) {
+	               X[k][j] -= X[i][j]*L[k][i];
+	           }
+	           X[k][j] /= L[k][k];
+	        }
+	      }
+	
+	      // Solve L'*X = Y;
+	      for (int k = n-1; k >= 0; k--) {
+	        for (int j = 0; j < nx; j++) {
+	           for (int i = k+1; i < n ; i++) {
+	               X[k][j] -= X[i][j]*L[i][k];
+	           }
+	           X[k][j] /= L[k][k];
+	        }
+	      }
+      
+      
       return new Matrix(X,n,nx);
    }
 }
+
