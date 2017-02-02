@@ -27,7 +27,7 @@ If the test does not run to completion, this indicates that there is a
 substantial problem within the implementation that was not anticipated in the test design.  
 The stopping point should give an indication of where the problem exists.
 **/
-public class TestMatrix {
+public class MatrixTest {
    public static void main (String argv[]) {
       Matrix A,B,C,Z,O,I,R,S,X,SUB,M,T,SQ,DEF,SOL;
       // Uncomment this to test IO in a different locale.
