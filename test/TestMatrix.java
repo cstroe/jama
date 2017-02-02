@@ -3,7 +3,8 @@ import Jama.*;
 import java.io.*;
 import java.util.zip.GZIPInputStream;
 import java.text.DecimalFormat;
-
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /** TestMatrix tests the functionality of the Jama Matrix class and associated decompositions.
 <P>
@@ -29,6 +30,8 @@ The stopping point should give an indication of where the problem exists.
 public class TestMatrix {
    public static void main (String argv[]) {
       Matrix A,B,C,Z,O,I,R,S,X,SUB,M,T,SQ,DEF,SOL;
+      // Uncomment this to test IO in a different locale.
+      // Locale.setDefault(Locale.GERMAN);
       int errorCount=0;
       int warningCount=0;
       double tmp, s;
@@ -627,6 +630,8 @@ public class TestMatrix {
       print("\nTesting I/O methods...\n");
          try {
             DecimalFormat fmt = new DecimalFormat("0.0000E00");
+	    fmt.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
+
             PrintWriter FILE = new PrintWriter(new FileOutputStream("JamaTestMatrix.out"));
             A.print(FILE,fmt,10);
             FILE.close();

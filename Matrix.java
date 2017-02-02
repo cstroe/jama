@@ -2,6 +2,8 @@ package Jama;
 
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.text.FieldPosition;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
@@ -920,6 +922,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
 
    public void print (PrintWriter output, int w, int d) {
       DecimalFormat format = new DecimalFormat();
+      format.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
       format.setMinimumIntegerDigits(1);
       format.setMaximumFractionDigits(d);
       format.setMinimumFractionDigits(d);
@@ -930,8 +933,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
    /** Print the matrix to stdout.  Line the elements up in columns.
      * Use the format object, and right justify within columns of width
      * characters.
+     * Note that is the matrix is to be read back in, you probably will want
+     * to use a NumberFormat that is set to US Locale.
    @param format A  Formatting object for individual elements.
    @param width     Field width for each column.
+   @see java.text.DecimalFormat#setDecimalFormatSymbols
    */
 
    public void print (NumberFormat format, int width) {
@@ -945,9 +951,12 @@ public class Matrix implements Cloneable, java.io.Serializable {
    /** Print the matrix to the output stream.  Line the elements up in columns.
      * Use the format object, and right justify within columns of width
      * characters.
+     * Note that is the matrix is to be read back in, you probably will want
+     * to use a NumberFormat that is set to US Locale.
    @param output the output stream.
    @param format A formatting object to format the matrix elements 
    @param width  Column width.
+   @see java.text.DecimalFormat#setDecimalFormatSymbols
    */
 
    public void print (PrintWriter output, NumberFormat format, int width) {
@@ -966,7 +975,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
    }
 
    /** Read a matrix from a stream.  The format is the same the print method,
-     * so printed matrices can be read back in.  Elements are separated by
+     * so printed matrices can be read back in (provided they were printed using
+     * US Locale).  Elements are separated by
      * whitespace, all the elements for each row appear on a single line,
      * the last row is followed by a blank line.
    @param input the input stream.
