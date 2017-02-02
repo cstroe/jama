@@ -1,7 +1,12 @@
-package Jama.test;
-import Jama.*;
-import java.io.*;
-import java.util.zip.GZIPInputStream;
+package Jama;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
